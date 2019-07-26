@@ -1,0 +1,15 @@
+reverse_port: 50001
+min_payload: 0.0
+max_payload: 5.0
+use_ros_control: false
+use_lowbandwidth_trajectory_follower: false
+time_interval: 0.008
+servoj_time: 0.008
+servoj_time_waiting: 0.001
+max_waiting_time: 2.0
+servoj_gain: 100.
+servoj_lookahead_time: 1.
+max_joint_difference: 0.01
+shutdown_on_disconnect: true
+require_activation: Never
+max_velocity: 10.0
