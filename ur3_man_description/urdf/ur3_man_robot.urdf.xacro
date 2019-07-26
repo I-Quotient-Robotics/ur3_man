@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<robot name="ur3_man_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" description="IQR UR3 Man Robot">
+  <!-- ur3 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+
+  <!-- pan_tilt camera -->
+  <xacro:include filename="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
+
+  <!-- kinect v2 -->
+  <xacro:include filename="$(find ur3_man_description)/urdf/kinect_v2.urdf.xacro" />
+  
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+             iyy="1.0" iyz="0.0"
+             izz="1.0" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- base footprint -->
+  <link name="base_footprint">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <!-- base link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ur3_man_description/mesh/ur3_man_robot.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.20 0.20 0.20 1" />
+      </material>
+    </visual>
+    <xacro:default_inertial mass="10" />
+  </link>
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 0.077" rpy="0.0 0.0 0.0" />
+    <parent link="base_footprint" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- pan_tilt camera -->
+  <xacro:pan_tilt parent="base_link" >
+    <origin xyz="0.0 0.0 1.30412" rpy="0.0 0.0 0.0" />
+  </xacro:pan_tilt>
+
+  <!-- kinect_v2 -->
+  <xacro:kinect_v2 parent="pan_tilt_kinect_surface" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:kinect_v2>
+
+  <!-- left_arm -->
+  <xacro:ur3_robot prefix="left_arm_" joint_limited="false" transmission_hw_interface="$(arg transmission_hw_interface)" />
+  <joint name="left_arm_joint" type="fixed">
+    <parent link="base_link" />
+    <child link = "left_arm_base_link" />
+    <origin xyz="0.0 0.199497 1.1495" rpy="-${M_PI/4} ${M_PI} 0.0" />
+  </joint>
+
+  <!-- right_arm -->
+  <xacro:ur3_robot prefix="right_arm_" joint_limited="false" transmission_hw_interface="$(arg transmission_hw_interface)" />
+  <joint name="right_arm_joint" type="fixed">
+    <parent link="base_link" />
+    <child link = "right_arm_base_link" />
+    <origin xyz="0.0 -0.199497 1.1495" rpy="${M_PI/4*3} 0.0 0.0" />
+  </joint>
+</robot>
