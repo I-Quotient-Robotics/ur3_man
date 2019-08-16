@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotiq_gripper">
+  
+  <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"> 
+      <robotNamespace>/</robotNamespace>
+    </plugin> 
+  </gazebo>
+
+  <xacro:macro name="robotiq_gripper_coupling" params="prefix parent *origin">
+    <link name="${prefix}gripper_coupling_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://ur3_man_description/mesh/robotiq_gripper_base.stl"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.2 0.2 0.2 1" />
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://ur3_man_description/mesh/robotiq_gripper_base.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.636951" />
+        <origin xyz="0.0 0.0 0.0" />
+        <inertia ixx = "0.000380" ixy = "0.000000" ixz = "0.000000"
+                 iyx = "0.000000" iyy = "0.001110" iyz = "0.000000"
+                 izx = "0.000000" izy = "0.000000" izz = "0.001171" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}coupling_base_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}gripper_coupling_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint> 
+  </xacro:macro>
+
+</robot>

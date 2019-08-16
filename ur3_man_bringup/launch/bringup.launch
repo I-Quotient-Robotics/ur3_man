@@ -18,22 +18,56 @@
   </include>
 
   <!-- left arm -->
-  <node name="left_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
-    <param name="prefix" type="str" value="left_arm_" />
-    <param name="robot_ip_address" type="str" value="192.168.0.154" />
-    <param name="base_frame" type="str" value="left_arm_base"/>
-    <param name="tool_frame" type="str" value="left_arm_tool0_controller"/>
-  </node>
+  <!-- <group ns="left"> -->
+    <node name="left_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
+      <param name="prefix" type="str" value="left_arm_" />
+      <param name="arm_controller" type="str" value="left_arm_controller" />
+      <param name="robot_ip_address" type="str" value="192.168.33.33" />
+      <param name="reverse_port" type="int" value="50002"/>
+      <param name="base_frame" type="str" value="left_arm_base"/>
+      <param name="tool_frame" type="str" value="left_arm_tool0_controller"/>
+      <remap from="follow_joint_trajectory/goal" to="left_arm_controller/follow_joint_trajectory/goal"/>
+      <remap from="follow_joint_trajectory/status" to="left_arm_controller/follow_joint_trajectory/status"/>
+      <remap from="follow_joint_trajectory/feedback" to="left_arm_controller/follow_joint_trajectory/feedback"/>
+      <remap from="follow_joint_trajectory/result" to="left_arm_controller/follow_joint_trajectory/result"/>
+      <remap from="follow_joint_trajectory/cancel" to="left_arm_controller/follow_joint_trajectory/cancel"/>
+    </node>
+  <!-- </group> -->
 
   <!-- right arm -->
-  <node name="right_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
-    <param name="prefix" type="str" value="right_arm_" />
-    <param name="robot_ip_address" type="str" value="192.168.0.155" />
-    <param name="base_frame" type="str" value="right_arm_base"/>
-    <param name="tool_frame" type="str" value="right_arm_tool0_controller"/>
+  <!-- <group ns="right"> -->
+    <node name="right_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
+      <param name="prefix" type="str" value="right_arm_" />
+      <param name="arm_controller" type="string" value="right_arm_controller" />
+      <param name="robot_ip_address" type="str" value="192.168.33.34" />
+      <param name="base_frame" type="str" value="right_arm_base"/>
+      <param name="tool_frame" type="str" value="right_arm_tool0_controller"/>
+      <remap from="follow_joint_trajectory/goal" to="right_arm_controller/follow_joint_trajectory/goal"/>
+      <remap from="follow_joint_trajectory/status" to="right_arm_controller/follow_joint_trajectory/status"/>
+      <remap from="follow_joint_trajectory/feedback" to="right_arm_controller/follow_joint_trajectory/feedback"/>
+      <remap from="follow_joint_trajectory/result" to="right_arm_controller/follow_joint_trajectory/result"/>
+      <remap from="follow_joint_trajectory/cancel" to="right_arm_controller/follow_joint_trajectory/cancel"/>
+    </node>
+  <!-- </group> -->
+
+  <!-- left gripper -->
+  <node pkg="robotiq_85_driver" type="robotiq_85_driver" name="left_robotiq_85_driver" respawn="true" output="screen">
+    <param name="num_grippers" value="1"/>
+    <param name="comport" value="/dev/robotiq_left" />
+    <param name="baud" value="115200" />
+    <remap from="/gripper/joint_states" to="joint_states"/>
+  </node>
+
+  <!-- right gripper -->
+  <node pkg="robotiq_85_driver" type="robotiq_85_driver" name="right_robotiq_85_driver" respawn="true" output="screen" ns="iqr">
+    <param name="num_grippers" value="1"/>
+    <param name="comport" value="/dev/robotiq_right" />
+    <param name="baud" value="115200" />
+    <remap from="/gripper/joint_states" to="joint_states"/>
   </node>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="$(arg log_type)">
     <param name="publish_frequency" type="double" value="30" />
   </node>
+
 </launch>

@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot name="ur3_man_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" description="IQR UR3 Man Robot">
+  <xacro:property name="M_PI" value="3.1415926535897931" />
   <!-- ur3 -->
   <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
   <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
-
+  
+  <!-- robotiq 2f 85mm -->
+  <xacro:include filename="$(find ur3_man_description)/urdf/robotiq_gripper.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
   <!-- pan_tilt camera -->
   <xacro:include filename="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
 
@@ -71,4 +75,23 @@
     <child link = "right_arm_base_link" />
     <origin xyz="0.0 -0.199497 1.1495" rpy="${M_PI/4*3} 0.0 0.0" />
   </joint>
+
+  <!-- left_gripper -->
+  <xacro:robotiq_gripper_coupling parent="left_arm_ee_link" prefix="left_">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_gripper_coupling>
+
+  <xacro:robotiq_85_gripper parent="left_gripper_coupling_link" prefix="left_">
+    <origin xyz="0.008 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_85_gripper>
+
+  <!-- right_gripper -->
+  <xacro:robotiq_gripper_coupling parent="right_arm_ee_link" prefix="right_">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_gripper_coupling>
+
+  <xacro:robotiq_85_gripper parent="right_gripper_coupling_link" prefix="right_">
+    <origin xyz="0.008 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_85_gripper>
+
 </robot>

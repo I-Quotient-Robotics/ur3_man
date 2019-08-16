@@ -107,6 +107,10 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        left_arm_tool0_controller:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         left_arm_upper_arm_link:
           Alpha: 1
           Show Axes: false
@@ -123,6 +127,56 @@ Visualization Manager:
           Show Trail: false
           Value: true
         left_arm_wrist_3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_coupling_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger1_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger1_finger_tip_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger1_inner_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger1_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger2_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger2_finger_tip_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger2_inner_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_gripper_finger2_knuckle_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -174,6 +228,10 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        right_arm_tool0_controller:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         right_arm_upper_arm_link:
           Alpha: 1
           Show Axes: false
@@ -190,6 +248,56 @@ Visualization Manager:
           Show Trail: false
           Value: true
         right_arm_wrist_3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_coupling_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger1_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger1_finger_tip_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger1_inner_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger1_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger2_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger2_finger_tip_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger2_inner_knuckle_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_gripper_finger2_knuckle_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -201,109 +309,19 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_footprint:
-          Value: true
-        base_link:
-          Value: true
-        kinect2_link:
-          Value: true
-        kinect_v2_base:
-          Value: true
-        left_arm_base:
-          Value: true
-        left_arm_base_link:
-          Value: true
-        left_arm_ee_link:
-          Value: true
-        left_arm_forearm_link:
-          Value: true
-        left_arm_shoulder_link:
-          Value: true
-        left_arm_tool0:
-          Value: true
-        left_arm_upper_arm_link:
-          Value: true
-        left_arm_wrist_1_link:
-          Value: true
-        left_arm_wrist_2_link:
-          Value: true
-        left_arm_wrist_3_link:
-          Value: true
-        pan_tilt_base_link:
-          Value: true
-        pan_tilt_kinect_surface:
-          Value: true
-        pan_tilt_pitch_link:
-          Value: true
-        pan_tilt_yaw_link:
-          Value: true
-        right_arm_base:
-          Value: true
-        right_arm_base_link:
-          Value: true
-        right_arm_ee_link:
-          Value: true
-        right_arm_forearm_link:
-          Value: true
-        right_arm_shoulder_link:
-          Value: true
-        right_arm_tool0:
-          Value: true
-        right_arm_upper_arm_link:
-          Value: true
-        right_arm_wrist_1_link:
-          Value: true
-        right_arm_wrist_2_link:
-          Value: true
-        right_arm_wrist_3_link:
-          Value: true
       Marker Scale: 0.300000012
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            left_arm_base_link:
-              left_arm_base:
-                {}
-              left_arm_shoulder_link:
-                left_arm_upper_arm_link:
-                  left_arm_forearm_link:
-                    left_arm_wrist_1_link:
-                      left_arm_wrist_2_link:
-                        left_arm_wrist_3_link:
-                          left_arm_ee_link:
-                            {}
-                          left_arm_tool0:
-                            {}
-            pan_tilt_base_link:
-              pan_tilt_yaw_link:
-                pan_tilt_pitch_link:
-                  pan_tilt_kinect_surface:
-                    kinect_v2_base:
-                      kinect2_link:
-                        {}
-            right_arm_base_link:
-              right_arm_base:
-                {}
-              right_arm_shoulder_link:
-                right_arm_upper_arm_link:
-                  right_arm_forearm_link:
-                    right_arm_wrist_1_link:
-                      right_arm_wrist_2_link:
-                        right_arm_wrist_3_link:
-                          right_arm_ee_link:
-                            {}
-                          right_arm_tool0:
-                            {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -329,7 +347,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.63901854
+      Distance: 2.47988915
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -344,10 +362,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.580398262
+      Pitch: 0.600398064
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.28039822
+      Yaw: 0.200395644
     Saved: ~
 Window Geometry:
   Displays:
