@@ -17,53 +17,48 @@
     <arg name="publish_tf" value="true" />
   </include>
 
-  <!-- left arm -->
-  <!-- <group ns="left"> -->
-    <node name="left_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
+  <group ns="left_arm">
+    <!-- left arm -->
+    <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
       <param name="prefix" type="str" value="left_arm_" />
-      <param name="arm_controller" type="str" value="left_arm_controller" />
       <param name="robot_ip_address" type="str" value="192.168.33.33" />
       <param name="reverse_port" type="int" value="50002"/>
       <param name="base_frame" type="str" value="left_arm_base"/>
       <param name="tool_frame" type="str" value="left_arm_tool0_controller"/>
-      <remap from="follow_joint_trajectory/goal" to="left_arm_controller/follow_joint_trajectory/goal"/>
-      <remap from="follow_joint_trajectory/status" to="left_arm_controller/follow_joint_trajectory/status"/>
-      <remap from="follow_joint_trajectory/feedback" to="left_arm_controller/follow_joint_trajectory/feedback"/>
-      <remap from="follow_joint_trajectory/result" to="left_arm_controller/follow_joint_trajectory/result"/>
-      <remap from="follow_joint_trajectory/cancel" to="left_arm_controller/follow_joint_trajectory/cancel"/>
     </node>
-  <!-- </group> -->
+  </group>
 
-  <!-- right arm -->
-  <!-- <group ns="right"> -->
-    <node name="right_arm_ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
+  <group ns="right_arm">
+    <!-- right arm -->
+    <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
       <param name="prefix" type="str" value="right_arm_" />
-      <param name="arm_controller" type="string" value="right_arm_controller" />
       <param name="robot_ip_address" type="str" value="192.168.33.34" />
       <param name="base_frame" type="str" value="right_arm_base"/>
       <param name="tool_frame" type="str" value="right_arm_tool0_controller"/>
-      <remap from="follow_joint_trajectory/goal" to="right_arm_controller/follow_joint_trajectory/goal"/>
-      <remap from="follow_joint_trajectory/status" to="right_arm_controller/follow_joint_trajectory/status"/>
-      <remap from="follow_joint_trajectory/feedback" to="right_arm_controller/follow_joint_trajectory/feedback"/>
-      <remap from="follow_joint_trajectory/result" to="right_arm_controller/follow_joint_trajectory/result"/>
-      <remap from="follow_joint_trajectory/cancel" to="right_arm_controller/follow_joint_trajectory/cancel"/>
     </node>
-  <!-- </group> -->
+  </group>
 
-  <!-- left gripper -->
-  <node pkg="robotiq_85_driver" type="robotiq_85_driver" name="left_robotiq_85_driver" respawn="true" output="screen">
-    <param name="num_grippers" value="1"/>
-    <param name="comport" value="/dev/robotiq_left" />
-    <param name="baud" value="115200" />
-    <remap from="/gripper/joint_states" to="joint_states"/>
-  </node>
+    <!-- left gripper -->
+    <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="arobotiq_85_driver" respawn="false" output="$(arg log_type)">
+      <param name="num_grippers" value="1"/>
+      <param name="comport" value="/dev/robotiq_left"/>
+      <param name="baud" value="115200" />
+      <param name="gripper_prefix" type="str" value="left"/>
+    </node>
 
-  <!-- right gripper -->
-  <node pkg="robotiq_85_driver" type="robotiq_85_driver" name="right_robotiq_85_driver" respawn="true" output="screen" ns="iqr">
-    <param name="num_grippers" value="1"/>
-    <param name="comport" value="/dev/robotiq_right" />
-    <param name="baud" value="115200" />
-    <remap from="/gripper/joint_states" to="joint_states"/>
+    <!-- right gripper -->
+    <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="robotiq_85_driver" respawn="false" output="$(arg log_type)">
+      <param name="num_grippers" value="1"/>
+      <param name="comport" value="/dev/robotiq_right" />
+      <param name="baud" value="115200" />
+      <param name="gripper_prefix" type="str" value="right"/>
+    </node>
+
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="$(arg log_type)">
+    <rosparam param="source_list">
+      ["/left_arm/joint_states", "/right_arm/joint_states", "/right/gripper/joint_states", "/left/gripper/joint_states"]
+    </rosparam>
   </node>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="$(arg log_type)">

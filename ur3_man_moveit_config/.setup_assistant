@@ -8,4 +8,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: Ye Tian
     author_email: ye.tian@iquotient-robotics.com
-    generated_timestamp: 1565861987
+    generated_timestamp: 1566041047
