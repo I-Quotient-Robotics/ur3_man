@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot name="ur3_man_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" description="IQR UR3 Man Robot">
   <xacro:property name="M_PI" value="3.1415926535897931" />
+
   <!-- ur3 -->
   <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
   <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
@@ -9,13 +10,15 @@
   <!-- robotiq 2f 85mm -->
   <xacro:include filename="$(find ur3_man_description)/urdf/robotiq_gripper.urdf.xacro" />
   <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+
   <!-- pan_tilt camera -->
   <xacro:include filename="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
 
   <!-- kinect v2 -->
   <xacro:include filename="$(find ur3_man_description)/urdf/kinect_v2.urdf.xacro" />
-  
-  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <!-- realsense d435 -->
+  <xacro:include filename="$(find ur3_man_description)/urdf/realsense_d435.urdf.xacro" />
 
   <xacro:macro name="default_inertial" params="mass">
     <inertial>
@@ -76,6 +79,28 @@
     <origin xyz="0.0 -0.199497 1.1495" rpy="${M_PI/4*3} 0.0 0.0" />
   </joint>
 
+  <!-- left arm realsense -->
+  <link name="left_arm_realsense_coupling_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ur3_man_description/mesh/ur3_realsense_coupling.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.20 0.20 0.20 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="left_arm_realsense_coupling_joint" type="fixed">
+    <origin xyz="-0.004 0 0" rpy="0 0 0"/>
+    <parent link="left_arm_ee_link"/>
+    <child link="left_arm_realsense_coupling_link"/>
+  </joint>
+
+  <sensor_d435 parent="left_arm_realsense_coupling_link" prefix="left_arm_camera">
+    <origin xyz="0.01005 0 0.0725" rpy="0 0 0"/>
+  </sensor_d435>
+
   <!-- left_gripper -->
   <xacro:robotiq_gripper_coupling parent="left_arm_ee_link" prefix="left_">
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -92,6 +117,28 @@
     <parent link="left_gripper_base_link"/>
     <child link="left_gripper_ee_link"/>
   </joint>
+
+  <!-- right arm realsense -->
+  <link name="right_arm_realsense_coupling_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ur3_man_description/mesh/ur3_realsense_coupling.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.20 0.20 0.20 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_arm_realsense_coupling_joint" type="fixed">
+    <origin xyz="-0.004 0 0" rpy="0 0 0"/>
+    <parent link="right_arm_ee_link"/>
+    <child link="right_arm_realsense_coupling_link"/>
+  </joint>
+
+  <sensor_d435 parent="right_arm_realsense_coupling_link" prefix="right_arm_camera">
+    <origin xyz="0.01005 0 0.0725" rpy="0 0 0"/>
+  </sensor_d435>
 
   <!-- right_gripper -->
   <xacro:robotiq_gripper_coupling parent="right_arm_ee_link" prefix="right_">

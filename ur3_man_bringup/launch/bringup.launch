@@ -2,6 +2,13 @@
 <launch>
   <arg name="log_type" default="screen"/>
 
+  <arg name="left_arm_camera_serial"          default=""/>
+  <arg name="right_arm_camera_serial"         default="838212073932"/>
+  <arg name="left_arm_ip"                     default="192.168.33.33"/>
+  <arg name="right_arm_ip"                    default="192.168.33.34"/>
+  <arg name="left_arm_gripper"                default="/dev/robotiq_left"/>
+  <arg name="right_arm_gripper"               default="/dev/robotiq_right"/>
+
   <!-- robot description -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find ur3_man_description)/urdf/ur3_man_robot.urdf.xacro" />
 
@@ -21,43 +28,58 @@
     <!-- left arm -->
     <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
       <param name="prefix" type="str" value="left_arm_" />
-      <param name="robot_ip_address" type="str" value="192.168.33.33" />
+      <param name="robot_ip_address" type="str" value="$(arg left_arm_ip)" />
       <param name="reverse_port" type="int" value="50002"/>
       <param name="base_frame" type="str" value="left_arm_base"/>
       <param name="tool_frame" type="str" value="left_arm_tool0_controller"/>
     </node>
+
+ <!--    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg left_arm_camera_serial)"/>
+      <arg name="tf_prefix"             value="left_arm_camera"/>
+      <arg name="initial_reset"         value="false"/>
+      <arg name="enable_sync"           value="true"/>
+      <arg name="align_depth"           value="true"/>
+    </include> -->
   </group>
 
   <group ns="right_arm">
     <!-- right arm -->
     <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="$(arg log_type)">
       <param name="prefix" type="str" value="right_arm_" />
-      <param name="robot_ip_address" type="str" value="192.168.33.34" />
+      <param name="robot_ip_address" type="str" value="$(arg right_arm_ip)" />
       <param name="base_frame" type="str" value="right_arm_base"/>
       <param name="tool_frame" type="str" value="right_arm_tool0_controller"/>
     </node>
+
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg right_arm_camera_serial)"/>
+      <arg name="tf_prefix"             value="right_arm_camera"/>
+      <arg name="initial_reset"         value="false"/>
+      <arg name="enable_sync"           value="true"/>
+      <arg name="align_depth"           value="true"/>
+    </include>
   </group>
 
-    <!-- left gripper -->
-    <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="arobotiq_85_driver" respawn="false" output="$(arg log_type)">
-      <param name="num_grippers" value="1"/>
-      <param name="comport" value="/dev/robotiq_left"/>
-      <param name="baud" value="115200" />
-      <param name="gripper_prefix" type="str" value="left"/>
-    </node>
+  <!-- left gripper -->
+  <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="arobotiq_85_driver" respawn="false" output="$(arg log_type)">
+    <param name="num_grippers" value="1"/>
+    <param name="comport" value="$(arg left_arm_gripper_port)"/>
+    <param name="baud" value="115200" />
+    <param name="gripper_prefix" type="str" value="left_arm"/>
+  </node>
 
-    <!-- right gripper -->
-    <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="robotiq_85_driver" respawn="false" output="$(arg log_type)">
-      <param name="num_grippers" value="1"/>
-      <param name="comport" value="/dev/robotiq_right" />
-      <param name="baud" value="115200" />
-      <param name="gripper_prefix" type="str" value="right"/>
-    </node>
-
+  <!-- right gripper -->
+  <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="robotiq_85_driver" respawn="false" output="$(arg log_type)">
+    <param name="num_grippers" value="1"/>
+    <param name="comport" value="$(arg right_arm_gripper_port)" />
+    <param name="baud" value="115200" />
+    <param name="gripper_prefix" type="str" value="right_arm"/>
+  </node>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="$(arg log_type)">
     <rosparam param="source_list">
-      ["/left_arm/joint_states", "/right_arm/joint_states", "/right/gripper/joint_states", "/left/gripper/joint_states"]
+      ["/left_arm/joint_states", "/right_arm/joint_states", "/right_arm/gripper/joint_states", "/left_arm/gripper/joint_states"]
     </rosparam>
   </node>
 
