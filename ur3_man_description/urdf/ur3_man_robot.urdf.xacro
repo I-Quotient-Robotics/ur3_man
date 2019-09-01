@@ -102,11 +102,11 @@
   </sensor_d435>
 
   <!-- left_gripper -->
-  <xacro:robotiq_gripper_coupling parent="left_arm_ee_link" prefix="left_">
+  <xacro:robotiq_gripper_coupling parent="left_arm_ee_link" prefix="left_arm_">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:robotiq_gripper_coupling>
 
-  <xacro:robotiq_85_gripper parent="left_gripper_coupling_link" prefix="left_">
+  <xacro:robotiq_85_gripper parent="left_arm_gripper_coupling_link" prefix="left_arm_">
     <origin xyz="0.008 0 0" rpy="0 0 0"/>
   </xacro:robotiq_85_gripper>
 
@@ -114,7 +114,7 @@
 
   <joint name="left_gripper_ee_joint" type="fixed">
     <origin xyz="0.13 0 0" rpy="0 0 0"/>
-    <parent link="left_gripper_base_link"/>
+    <parent link="left_arm_gripper_base_link"/>
     <child link="left_gripper_ee_link"/>
   </joint>
 
@@ -141,11 +141,11 @@
   </sensor_d435>
 
   <!-- right_gripper -->
-  <xacro:robotiq_gripper_coupling parent="right_arm_ee_link" prefix="right_">
+  <xacro:robotiq_gripper_coupling parent="right_arm_ee_link" prefix="right_arm_">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:robotiq_gripper_coupling>
 
-  <xacro:robotiq_85_gripper parent="right_gripper_coupling_link" prefix="right_">
+  <xacro:robotiq_85_gripper parent="right_arm_gripper_coupling_link" prefix="right_arm_">
     <origin xyz="0.008 0 0" rpy="0 0 0"/>
   </xacro:robotiq_85_gripper>
 
@@ -153,7 +153,7 @@
 
   <joint name="right_gripper_ee_joint" type="fixed">
     <origin xyz="0.13 0 0" rpy="0 0 0"/>
-    <parent link="right_gripper_base_link"/>
+    <parent link="right_arm_gripper_base_link"/>
     <child link="right_gripper_ee_link"/>
   </joint>
 

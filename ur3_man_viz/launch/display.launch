@@ -2,5 +2,5 @@
 <launch>  
   <arg name="type" default="view"/>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find caster_viz)/viz/$(arg type).rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ur3_man_viz)/viz/$(arg type).rviz" />
 </launch>

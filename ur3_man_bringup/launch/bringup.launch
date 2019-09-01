@@ -2,12 +2,14 @@
 <launch>
   <arg name="log_type" default="screen"/>
 
-  <arg name="left_arm_camera_serial"          default=""/>
+  <arg name="left_arm_camera_serial"          default="837212070702"/>
   <arg name="right_arm_camera_serial"         default="838212073932"/>
+  <arg name="left_arm_camera"                 default="left_arm_camera"/>
+  <arg name="right_arm_camera"                default="right_arm_camera"/>
   <arg name="left_arm_ip"                     default="192.168.33.33"/>
   <arg name="right_arm_ip"                    default="192.168.33.34"/>
-  <arg name="left_arm_gripper"                default="/dev/robotiq_left"/>
-  <arg name="right_arm_gripper"               default="/dev/robotiq_right"/>
+  <arg name="left_arm_gripper_port"                default="/dev/robotiq_left"/>
+  <arg name="right_arm_gripper_port"               default="/dev/robotiq_right"/>
 
   <!-- robot description -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find ur3_man_description)/urdf/ur3_man_robot.urdf.xacro" />
@@ -20,9 +22,9 @@
   </node> -->
 
   <!-- kinect -->
-<!--   <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+  <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
     <arg name="publish_tf" value="true" />
-  </include> -->
+  </include>
 
   <group ns="left_arm">
     <!-- left arm -->
@@ -34,13 +36,13 @@
       <param name="tool_frame" type="str" value="left_arm_tool0_controller"/>
     </node>
 
- <!--    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg left_arm_camera_serial)"/>
       <arg name="tf_prefix"             value="left_arm_camera"/>
       <arg name="initial_reset"         value="false"/>
       <arg name="enable_sync"           value="true"/>
       <arg name="align_depth"           value="true"/>
-    </include> -->
+    </include>
   </group>
 
   <group ns="right_arm">
@@ -52,30 +54,30 @@
       <param name="tool_frame" type="str" value="right_arm_tool0_controller"/>
     </node>
 
-<!--     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg right_arm_camera_serial)"/>
       <arg name="tf_prefix"             value="right_arm_camera"/>
       <arg name="initial_reset"         value="false"/>
       <arg name="enable_sync"           value="true"/>
       <arg name="align_depth"           value="true"/>
-    </include> -->
+    </include>
   </group>
 
   <!-- left gripper -->
-<!--   <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="arobotiq_85_driver" respawn="false" output="$(arg log_type)">
+  <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="arobotiq_85_driver" respawn="false" output="$(arg log_type)">
     <param name="num_grippers" value="1"/>
     <param name="comport" value="$(arg left_arm_gripper_port)"/>
     <param name="baud" value="115200" />
     <param name="gripper_prefix" type="str" value="left_arm"/>
   </node>
- -->
+
   <!-- right gripper -->
-<!--   <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="robotiq_85_driver" respawn="false" output="$(arg log_type)">
+  <node pkg="ur3_man_bringup" type="robotiq_2f_85_driver.py" name="robotiq_85_driver" respawn="false" output="$(arg log_type)">
     <param name="num_grippers" value="1"/>
     <param name="comport" value="$(arg right_arm_gripper_port)" />
     <param name="baud" value="115200" />
     <param name="gripper_prefix" type="str" value="right_arm"/>
-  </node> -->
+  </node>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="$(arg log_type)">
     <rosparam param="source_list">
