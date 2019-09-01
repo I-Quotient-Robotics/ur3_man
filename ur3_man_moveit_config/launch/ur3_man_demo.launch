@@ -10,17 +10,6 @@
     <arg name="load_robot_description" value="true"/>
   </include>
 
-
- <!--  <node name="left_arm_pid_joint_trajectory_action_server" pkg="ur3_man_bringup" type="pid_traj_action_server.py" output="screen" respawn="false">
-    <param name="driver_name" value="left_arm_ur_driver" />
-    <param name="controller_name" value="left_arm_controller" />
-  </node>
-
-  <node name="right_arm_pid_joint_trajectory_action_server" pkg="ur3_man_bringup" type="pid_traj_action_server.py" output="screen" respawn="false">
-    <param name="driver_name" value="right_arm_ur_driver" />
-    <param name="controller_name" value="right_arm_controller" />
-  </node> -->
-
   <!-- Run the main MoveIt! executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find ur3_man_moveit_config)/launch/move_group.launch">
     <arg name="allow_trajectory_execution" value="true"/>

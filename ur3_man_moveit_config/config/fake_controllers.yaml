@@ -15,7 +15,7 @@ controller_list:
       - right_arm_wrist_1_joint
       - right_arm_wrist_2_joint
       - right_arm_wrist_3_joint
-  - name: fake_move_group_controller
+  - name: fake_dual_arm_controller
     joints:
       - left_arm_shoulder_pan_joint
       - left_arm_shoulder_lift_joint

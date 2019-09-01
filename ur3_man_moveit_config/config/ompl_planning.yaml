@@ -176,7 +176,7 @@ right_arm:
     - SPARStwo
   projection_evaluator: joints(right_arm_shoulder_pan_joint,right_arm_shoulder_lift_joint)
   longest_valid_segment_fraction: 0.005
-move_group:
+dual_arm:
   default_planner_config: ""
   planner_configs:
     - SBL
