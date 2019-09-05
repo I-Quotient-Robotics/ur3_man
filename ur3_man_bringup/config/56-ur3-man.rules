@@ -1,3 +1,3 @@
 SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666", GROUP:="dialout", SYMLINK+="pan_tilt"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="DAK6SJC4", MODE:="0666", GROUP:="dialout", SYMLINK+="robotiq_right"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="DAK6SGDV", MODE:="0666", GROUP:="dialout", SYMLINK+="robotiq_left"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="DAK6SGDV", MODE:="0666", GROUP:="dialout", SYMLINK+="robotiq_right"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="DAK6SJC4", MODE:="0666", GROUP:="dialout", SYMLINK+="robotiq_left"
